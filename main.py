@@ -14,17 +14,35 @@ from typing import List, Tuple
 
 Point = Tuple[float, float]
 
+def orientation(p, q, r):
+    return (q[0] - p[0])*(r[1] - p[1]) - (q[1] - p[1])*(r[0] - p[0])
+
 def convex_hull_jarvis(points: List[Point]) -> List[Point]:
-    #angle = (p2[0] - p1[0])*(p3[1] - p2[1]) - (p2[1] - p1[1])*(p3[0] - p2[0])
-    encapsulatingPoints = []
-    for i in range(len(points)):
-        for j in range(len(points)):
-            orientation = None
+    if (len(points) <= 3):
+        return points
+    
+    hull = []
+
+    start = min(points)
+    current = start
+
+    while True:
+        hull.append(current)
+        candidate = points[0]
+
+        for p in points:
+            if candidate == current or orientation(current, candidate, p) > 0:
+                candidate = p
+
+        current = candidate
+
+        if current == start:
+            break
+
+    return hull
+
 
 if __name__ == "__main__":
     points = [(0, 3), (2, 2), (1, 1), (2, 1), (3, 0), (0, 0), (3, 3)] 
     hull = convex_hull_jarvis(points) 
-    print("Convex Hull:", hull)
-
-
-#Convex Hull: [(0, 0), (0, 3), (3, 3), (3, 0)]
+    print("Convex Hull:", hull) #Convex Hull: [(0, 0), (0, 3), (3, 3), (3, 0)]
