@@ -26,14 +26,15 @@ def convex_hull_jarvis(points: List[Point]) -> List[Point]:
 
     n = len(points)
     if n <= 1:
-        return points
+        return [(float(x), float(y)) for (x, y) in points]
+
     if n == 2:
-        return sorted(points)
+        return [(float(x), float(y)) for (x, y) in sorted(points)]
 
     # Check if all points are collinear
     base = points[0]
     if all(orientation(base, points[1], p) == 0 for p in points[2:]):
-        return [min(points), max(points)]
+        return [(float(x), float(y)) for (x, y) in [min(points), max(points)]]
 
     hull = []
 
@@ -66,7 +67,7 @@ def convex_hull_jarvis(points: List[Point]) -> List[Point]:
         if current == start:
             break
 
-    return hull
+    return [(float(x), float(y)) for (x, y) in hull]
 
 if __name__ == "__main__":
     points = [(0, 3), (2, 2), (1, 1), (2, 1), (3, 0), (0, 0), (3, 3)] 
