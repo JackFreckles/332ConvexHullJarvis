@@ -37,7 +37,7 @@ def convex_hull_jarvis(points: List[Point]) -> List[Point]:
 
     hull = []
 
-    start = min(points)  # leftmost (lexicographically smallest)
+    start = min(points)
     current = start
 
     while True:
