@@ -26,23 +26,36 @@ class TestMathFunctions(unittest.TestCase):
         hull = convex_hull_jarvis(points) 
         self.assertEqual(hull, [(0,0), (0,5), (5,5), (5,0)])
 
-    # def test_duplicates(self):
-    #     pass
+    def test_duplicates(self):
+        points = [(0,0), (1,1), (2,2), (0,0), (2,2), (3,0)]
+        hull = convex_hull_jarvis(points)
+        self.assertEqual(hull, [(0,0), (2,2), (3,0)])
 
-    # def test_all_collinear(self):
-    #     pass
+    def test_all_collinear(self):
+        points = [(0,0), (1,1), (2,2), (3,3), (4,4)]
+        hull = convex_hull_jarvis(points)
+        # Expect just endpoints for collinear case
+        self.assertEqual(hull, [(0,0), (4,4)])
 
-    # def test_two_points(self):
-    #     pass
+    def test_two_points(self):
+        points = [(0,0), (1,1)]
+        hull = convex_hull_jarvis(points)
+        self.assertEqual(hull, [(0,0), (1,1)])
 
-    # def test_single_point(self):
-    #    pass
+    def test_single_point(self):
+        points = [(0,0)]
+        hull = convex_hull_jarvis(points)
+        self.assertEqual(hull, [(0,0)])
 
-    # def test_triangle(self):
-    #     pass
+    def test_triangle(self):
+        points = [(0,0), (2,0), (1,2)]
+        hull = convex_hull_jarvis(points)
+        self.assertEqual(hull, [(0,0), (1,2), (2,0)])
 
-    # def test_collinear_on_edges(self):
-    #     pass
+    def test_collinear_on_edges(self):
+        points = [(0,0), (2,0), (4,0), (4,4), (2,4), (0,4)]
+        hull = convex_hull_jarvis(points)
+        self.assertEqual(hull, [(0,0), (0,4), (4,4), (4,0)])
 
 if __name__ == "__main__":
     unittest.main()
